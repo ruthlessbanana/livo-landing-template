@@ -65,13 +65,13 @@ livo-landing-template/
 1. Import the GitHub repo at [vercel.com/new](https://vercel.com/new).
 2. Set **Root Directory** to `interface`.
 3. Turn on **Include files outside of the Root Directory in the Build Step** (required so `../landing-kit` is available).
-4. Leave Install / Build / Output on the defaults from `interface/vercel.json`:
+4. Leave Install / Build on the defaults from `interface/vercel.json`:
    - Install: `npm ci --prefix ..`
    - Build: `npm run build --prefix ..`
-   - Output: `out`
-5. No environment variables needed. Deploy.
+5. **Do not set Output Directory** in the Vercel dashboard. Leave it empty so Vercel uses the native Next.js build (`.next`). A custom `out` output causes a `routes-manifest.json` error with static export.
+6. No environment variables needed. Deploy.
 
-`landing-kit` is bundled into the static site at build time (`transpilePackages` in `next.config.ts`). You deploy **one** Vercel project, not two.
+On Vercel, `next.config.ts` skips `output: "export"` automatically (`VERCEL` is set during build). Local and Livo builds still export static files to `interface/out/`.
 
 ### CLI
 

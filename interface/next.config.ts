@@ -4,8 +4,11 @@ import type { NextConfig } from "next";
 
 const projectDir = dirname(fileURLToPath(import.meta.url));
 
+/** Static export for Livo/Cloudflare; native Next.js output on Vercel. */
+const useStaticExport = !process.env.VERCEL;
+
 const nextConfig: NextConfig = {
-  output: "export",
+  ...(useStaticExport ? { output: "export" as const } : {}),
   transpilePackages: ["@livo/landing-kit"],
   turbopack: {
     // Resolve hoisted workspace deps (tailwind, postcss) from the repo root.
