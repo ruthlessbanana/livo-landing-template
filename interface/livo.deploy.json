@@ -1,8 +1,8 @@
 {
   "framework": "next",
   "runtime": "next",
-  "installCommand": "npm ci --include-workspace-root=false --workspace=interface --no-audit --no-fund",
-  "buildCommand": "npm --workspace interface run build",
+  "installCommand": "npm ci --no-audit --no-fund",
+  "buildCommand": "npm run build",
   "startCommand": "npm --workspace interface run start",
   "outputDirectory": "out",
   "healthPath": "/"

@@ -45,6 +45,42 @@ npm run build
 
 Output: `interface/out/`
 
+## Deploy to Vercel (monorepo)
+
+This repo has two workspaces:
+
+```
+livo-landing-template/
+├── landing-kit/     # Shared renderer (components, schema, theme) — not a separate deploy
+├── interface/       # Next.js app Vercel builds and hosts
+│   ├── vercel.json  # Monorepo install/build from repo root
+│   └── landing/page-spec.json
+└── package.json     # npm workspaces root
+```
+
+`interface` depends on `@livo/landing-kit` via npm workspaces. Vercel must install **both** folders, then build from the **repo root** so spec validation runs before the Next.js export.
+
+### One-time Vercel setup
+
+1. Import the GitHub repo at [vercel.com/new](https://vercel.com/new).
+2. Set **Root Directory** to `interface`.
+3. Turn on **Include files outside of the Root Directory in the Build Step** (required so `../landing-kit` is available).
+4. Leave Install / Build / Output on the defaults from `interface/vercel.json`:
+   - Install: `npm ci --prefix ..`
+   - Build: `npm run build --prefix ..`
+   - Output: `out`
+5. No environment variables needed. Deploy.
+
+`landing-kit` is bundled into the static site at build time (`transpilePackages` in `next.config.ts`). You deploy **one** Vercel project, not two.
+
+### CLI
+
+```bash
+npm ci
+npx vercel --cwd interface
+npx vercel --cwd interface --prod
+```
+
 ## Spec file
 
 Edit `interface/landing/page-spec.json` or overwrite it from generation tooling. The app validates the spec at runtime via `parsePageSpec()`.
