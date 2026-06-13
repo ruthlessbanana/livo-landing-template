@@ -1,0 +1,19 @@
+{
+  "name": "livo-landing-template",
+  "private": true,
+  "workspaces": [
+    "landing-kit",
+    "interface"
+  ],
+  "scripts": {
+    "build": "npm run validate-spec && npm --workspace interface run build",
+    "typecheck": "npm --workspace landing-kit run typecheck && npm --workspace interface run typecheck",
+    "validate-spec": "npm --workspace landing-kit run validate-spec",
+    "export-schema": "npm --workspace landing-kit run export-schema",
+    "dev": "npm --workspace interface run dev"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.8",
+    "tailwindcss": "^4.1.8"
+  }
+}

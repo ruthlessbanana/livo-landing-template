@@ -1,0 +1,4 @@
+@import "tailwindcss";
+@source "../../landing-kit/src/**/*.{ts,tsx}";
+@source "./**/*.{ts,tsx}";
+@import "@livo/landing-kit/styles.css";
